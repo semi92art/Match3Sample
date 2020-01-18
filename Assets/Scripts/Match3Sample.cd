@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Model">
+    <Position X="14.314" Y="1.11" Height="0.35" Width="11.174" />
+  </Comment>
+  <Comment CommentText="View">
+    <Position X="3.015" Y="1.107" Height="0.35" Width="10.714" />
+  </Comment>
+  <Class Name="Match3SampleModel.FigureItemsFactory" Collapsed="true">
+    <Position X="18.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\Factories\FigureItemsFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleModel.DefaultBoard" Collapsed="true">
+    <Position X="16.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\Boards\DefaultBoard.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleModel.DefaultGameSession" Collapsed="true">
+    <Position X="14.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAQAAAAAAAAAAAAAAAAAAAAgAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\GameSessions\DefaultGameSession.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleModel.SimpleBoardFactory" Collapsed="true">
+    <Position X="16.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\Factories\SimpleBoardFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleModel.DefaultFigureItemsRandomInstancer" Collapsed="true">
+    <Position X="20.75" Y="5.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\RandomInstancers\DefaultFigureItemsRandomInstancer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleModel.FigureItem" Collapsed="true">
+    <Position X="20.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\FigureItems\FigureItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleView.DefaultGameSessionController" Collapsed="true">
+    <Position X="11.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAgA=</HashCode>
+      <FileName>Assets\Scripts\View\Controllers\DefaultGameSessionController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="Match3SampleModel.Vec2">
+    <Position X="24" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAiA=</HashCode>
+      <FileName>Assets\Scripts\Model\Vec2.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Match3SampleModel.IGameSession">
+    <Position X="14.25" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAQAAAAAAAAAAAAAAAAAAAAgAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\GameSessions\IGameSession.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleModel.IFigureItemsRandomInstancer">
+    <Position X="20.75" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\RandomInstancers\IFigureItemsRandomInstancer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleModel.IFigureItemsFactory">
+    <Position X="18.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\Factories\IFigureItemsFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleModel.IBoardFactory">
+    <Position X="16.25" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\Factories\IBoardFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleModel.IFigureItem">
+    <Position X="18.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\FigureItems\IFigureItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleModel.IBoard">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\Boards\IBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleView.IGameSessionController">
+    <Position X="11.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAgA=</HashCode>
+      <FileName>Assets\Scripts\View\Controllers\IGameSessionController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Match3SampleView.IGameSessionView" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ACABAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAAAAACQAAA=</HashCode>
+      <FileName>Assets\Scripts\View\GameSessionViews\IGameSessionView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Match3SampleModel.FigureItemType">
+    <Position X="24" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABgAAAAAAAAIAAAAACAAAAASAABAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\FigureItemType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Match3SampleModel.FigureMoveType">
+    <Position X="24" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Model\FigureMoveType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
