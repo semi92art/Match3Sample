@@ -25,6 +25,7 @@ namespace Match3SampleView
         public float delta_top_coeff = 0.25f;
 
         public static int Call_hash;
+        public static int Call2_hash;
         public static int Back_hash;
         public static int Kill_hash;
 
@@ -41,6 +42,7 @@ namespace Match3SampleView
             instance = this;
 
             Call_hash = Animator.StringToHash("call");
+            Call2_hash = Animator.StringToHash("call2");
             Back_hash = Animator.StringToHash("back");
             Kill_hash = Animator.StringToHash("kill");
 
@@ -76,7 +78,6 @@ namespace Match3SampleView
         public void InitStatics()
         {
             GameObject obj;
-            GameStatics gmst;
 
 #if UNITY_EDITOR
             DestroyImmediate(GameObject.Find(ConstantNames.BoardItems));
@@ -90,8 +91,7 @@ namespace Match3SampleView
             Destroy(GameObject.Find(ConstantNames.StaticInstances));
 #endif
 
-            obj = new GameObject(ConstantNames.StaticInstances);
-            gmst = obj.AddComponent<GameStatics>();
+            new GameObject(ConstantNames.StaticInstances).AddComponent<GameStatics>();
         }
 
         

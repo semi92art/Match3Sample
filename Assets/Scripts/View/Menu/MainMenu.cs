@@ -9,6 +9,7 @@ namespace Match3SampleView
         private static MainMenu instance;
         public static MainMenu Instance { get { return instance; } }
 
+        public bool LockControls { get; set; }
         public InputField width;
         public InputField height;
 

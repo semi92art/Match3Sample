@@ -63,6 +63,10 @@ namespace Match3SampleView
 
         private void OnMouseOver()
         {
+            if (!gmst.gameSessionView.ArePreviousMovesFinished())
+                return;
+
+
 #if UNITY_EDITOR || UNITY_STANDALONE
             if (Input.GetMouseButtonDown(0))
                 MakeTurn();
@@ -79,6 +83,11 @@ namespace Match3SampleView
                 return;
 
             gmst.gameSessionView.MakeTurn(position);
+        }
+
+        public void Highlight()
+        {
+            animator.SetTrigger(_preload.Call2_hash);
         }
     }
 }

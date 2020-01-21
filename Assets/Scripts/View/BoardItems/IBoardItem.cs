@@ -8,5 +8,6 @@ namespace Match3SampleView
         Vector2Int GetPosition();
         bool IsSelected();
         void Select(bool value);
+        void Highlight();
     }
 }

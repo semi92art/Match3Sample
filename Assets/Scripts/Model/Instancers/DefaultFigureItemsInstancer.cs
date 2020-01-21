@@ -31,10 +31,11 @@ namespace Match3SampleModel
             int boardSize_X = figureItemsTable.GetLength(0);
             int boardSize_Y = figureItemsTable.GetLength(1);
 
+            List<Vec2> itemsToSetEmpty = new List<Vec2>();
+
             for (int i = 0; i < boardSize_X; i++)
             {
                 matchesCount = 0;
-                List<Vec2> itemsToSetEmpty = new List<Vec2>();
                 for (int j = 1; j < boardSize_Y; j++)
                 {
                     if (figureItemsTable[i, j - 1].FigureType == figureItemsTable[i, j].FigureType)
@@ -65,18 +66,11 @@ namespace Match3SampleModel
                     else
                         matchesCount = 0; 
                 }
-
-                foreach (var item in itemsToSetEmpty)
-                {
-                    figureItemsTable[item.x, item.y].SetEmpty();
-                    Moves.Enqueue("b" + item.x + "," + item.y + "_c0,0");
-                }
             }
 
             for (int j = 0; j < boardSize_Y; j++)
             {
                 matchesCount = 0;
-                List<Vec2> itemsToSetEmpty = new List<Vec2>();
                 for (int i = 1; i < boardSize_X; i++)
                 {
                     if (figureItemsTable[i - 1, j].FigureType == figureItemsTable[i, j].FigureType)
@@ -107,12 +101,14 @@ namespace Match3SampleModel
                     else
                         matchesCount = 0;
                 }
+            }
 
-                foreach (var item in itemsToSetEmpty)
-                {
-                    figureItemsTable[item.x, item.y].SetEmpty();
-                    Moves.Enqueue("b" + item.x + "," + item.y + "_c0,0");
-                }
+            itemsToSetEmpty = itemsToSetEmpty.Distinct().ToList();
+
+            foreach (var item in itemsToSetEmpty)
+            {
+                figureItemsTable[item.x, item.y].SetEmpty();
+                Moves.Enqueue("b" + item.x + "," + item.y + "_c0,0");
             }
 
             return result;
@@ -121,7 +117,6 @@ namespace Match3SampleModel
         public void FillEmptyItemsFromQueues(IBoard board)
         {
             int board_height = board.FigureItemsTable.GetLength(1);
-
             List<string> commands = new List<string>();
 
             for (int i = 0; i < board.BoardSize_X; i++)

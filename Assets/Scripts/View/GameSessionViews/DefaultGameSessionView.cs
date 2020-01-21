@@ -23,8 +23,8 @@ namespace Match3SampleView
 
         private _preload preload;
         private GameStatics gmst;
-        private Model.IGameSession gameSession;
-        
+        public Model.IGameSession gameSession;
+
 
         private Vector2Int prev_selected, curr_selected;
         private PlayerAction playerAction;
@@ -82,7 +82,7 @@ namespace Match3SampleView
             }
         }
 
-        private int updateOrder = -1;
+        private BoardUpdateStage boardUpdateStage = BoardUpdateStage.AwaitingForUpdate;
         private int moveSetUpdateIndex = -1;
         private void Update()
         {
@@ -92,129 +92,210 @@ namespace Match3SampleView
         public void UpdateBoard()
         {
             commandsConverter.ConvertMoveCommans(gameSession.Moves);
-            updateOrder = 0;
+            boardUpdateStage = BoardUpdateStage.HandleMove;
             moveSetUpdateIndex = 0;
         }
 
         private void UpdateBoardInGameLoop()
         {
-            if (updateOrder == -1)
+            if (boardUpdateStage == BoardUpdateStage.AwaitingForUpdate)
                 return;
 
             var moveSet = commandsConverter.MoveSets[moveSetUpdateIndex];
 
-            if (updateOrder == 0)
+            switch (boardUpdateStage)
             {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-
-                if (moveSet.fromBoardToBoardMoveHandle.fromPosition.x != -1)
-                {
-                    var cmd = moveSet.fromBoardToBoardMoveHandle;
-                    FigureItems[cmd.fromPosition.x, cmd.fromPosition.y].MoveFigureToPosition(cmd.toPosition.x, cmd.toPosition.y);
-                    FigureItems[cmd.toPosition.x, cmd.toPosition.y].MoveFigureToPosition(cmd.fromPosition.x, cmd.fromPosition.y);
-
-                    IFigureItem temp = FigureItems[cmd.fromPosition.x, cmd.fromPosition.y];
-                    FigureItems[cmd.fromPosition.x, cmd.fromPosition.y] = FigureItems[cmd.toPosition.x, cmd.toPosition.y];
-                    FigureItems[cmd.toPosition.x, cmd.toPosition.y] = temp;
-                    updateOrder = 1;
-                }
-                else
-                    updateOrder = 2;
+                case BoardUpdateStage.HandleMove:
+                    ExecuteHandleMove(moveSet);
+                    break;
+                case BoardUpdateStage.HandleMove_WaitForEnd:
+                    ExecuteHandeMove_WaitForEnd();
+                    break;
+                case BoardUpdateStage.DestroyMatches:
+                    ExecuteDestroyMatches(moveSet);
+                    break;
+                case BoardUpdateStage.DestroyMatches_WaitForEnd:
+                    ExecuteDestroyMatches_WaitForEnd();
+                    break;
+                case BoardUpdateStage.MovesOnBoard:
+                    ExecuteMovesOnBoard(moveSet);
+                    break;
+                case BoardUpdateStage.MovesOnBoard_WaitForEnd:
+                    ExecuteMovesOnBoard_WaitForEnd();
+                    break;
+                case BoardUpdateStage.MovesFromQueuesToBoard:
+                    ExecuteMovesFromQueuesToBoard(moveSet);
+                    break;
+                case BoardUpdateStage.MovesFromQueuesToBoard_WaitForEnd:
+                    ExecuteMovesFromQueuesToBoard_WaitForEnd();
+                    break;
+                case BoardUpdateStage.MovesInQueues:
+                    ExecuteMovesInQueues(moveSet);
+                    break;
+                case BoardUpdateStage.MovesInQueues_WaitForEnd:
+                    ExecuteMovesInQueues_WaitForEnd();
+                    break;
+                case BoardUpdateStage.InstanceNewToQueues:
+                    ExecuteInstanceNewToQueues(moveSet);
+                    break;
+                case BoardUpdateStage.InstanceNewToQueues_WaitForEnd:
+                    ExecuteInstanceNewToQueues_WaitForEnd();
+                    break;
+                default:
+                    throw new System.NotImplementedException("UpdateBoardInGameLoop function not implemented completely!");
             }
-            else if (updateOrder == 1)
-            {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-
-                if (!ArePreviousMovesFinished())
-                    return;
-                else
-                    updateOrder = 2;
-            }
-            else if (updateOrder == 2)
-            {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-                while (moveSet.fromBoardToCemeteryMoves.Count > 0)
-                {
-                    var cmd = moveSet.fromBoardToCemeteryMoves.Dequeue();
-                    FigureItems[cmd.fromPosition.x, cmd.fromPosition.y].KillIfOnBoard();
-                }
-
-                updateOrder = 3;
-            }
-            else if (updateOrder == 3)
-            {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-                if (!ArePreviousMovesFinished())
-                    return;
-                else
-                    updateOrder = 4;
-            }
-            else if (updateOrder == 4)
-            {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-                while (moveSet.fromBoardToBoardMoves.Count > 0)
-                {
-                    var cmd = moveSet.fromBoardToBoardMoves.Dequeue();
-                    FigureItems[cmd.fromPosition.x, cmd.fromPosition.y].MoveFigureToPosition(cmd.toPosition.x, cmd.toPosition.y);
-                    FigureItems[cmd.toPosition.x, cmd.toPosition.y] = FigureItems[cmd.fromPosition.x, cmd.fromPosition.y];
-                }
-
-                updateOrder = 5;
-            }
-            else if (updateOrder == 5)
-            {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-                while (moveSet.fromQueueToBoardMoves.Count > 0)
-                {
-                    var cmd = moveSet.fromQueueToBoardMoves.Dequeue();
-                    FigureItems[cmd.toPosition.x, cmd.toPosition.y] = figureQueues[cmd.fromPosition.x].Dequeue();
-                    FigureItems[cmd.toPosition.x, cmd.toPosition.y].MoveFromQueueToBoard();
-                    FigureItems[cmd.toPosition.x, cmd.toPosition.y].MoveFigureToPosition(cmd.toPosition.x, cmd.toPosition.y);
-
-                    for (int i = 0; i < figureQueues[cmd.fromPosition.x].Count; i++)
-                    {
-                        var figureItem = figureQueues[cmd.fromPosition.x].Dequeue();
-                        figureItem.MoveFigureToPosition(figureItem.Position.x, figureItem.Position.y - 1);
-                        figureQueues[cmd.fromPosition.x].Enqueue(figureItem);
-                    }
-                }
-
-                updateOrder = 6;
-            }
-            else if (updateOrder == 6)
-            {
-                Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", updateOrder: " + updateOrder);
-
-                while (moveSet.fromInstancerToQueueMoves.Count > 0)
-                {
-                    var cmd = moveSet.fromInstancerToQueueMoves.Dequeue();
-                    var buffer_arr = gameSession.Board.FigureBuffers[cmd.toPosition.x].ToArray();
-                    int delta_size = buffer_arr.Length - figureQueues[cmd.toPosition.x].Count;
-                    for (int i = delta_size; i > 0; i--)
-                    {
-                        var figure_type = buffer_arr[buffer_arr.Length - i].FigureType;
-                        InstantiateQueueFigureItem(figure_type, cmd.toPosition.x, buffer_arr.Length - i);
-                    }
-                }
-
-
-
-                if (moveSetUpdateIndex + 1 == commandsConverter.MoveSets.Count)
-                {
-                    updateOrder = -1;
-                    moveSetUpdateIndex = -1;
-                }
-                else
-                {
-                    updateOrder = 0;
-                    moveSetUpdateIndex++;
-                }
-            }
-
-
         }
 
-        private bool ArePreviousMovesFinished()
+        private void ExecuteHandleMove(MoveSet moveSet)
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            if (moveSet.fromBoardToBoardMoveHandle.fromPosition.x != -1)
+            {
+                var cmd = moveSet.fromBoardToBoardMoveHandle;
+                FigureItems[cmd.fromPosition.x, cmd.fromPosition.y].MoveFigureToPosition(cmd.toPosition.x, cmd.toPosition.y);
+                FigureItems[cmd.toPosition.x, cmd.toPosition.y].MoveFigureToPosition(cmd.fromPosition.x, cmd.fromPosition.y);
+
+                IFigureItem temp = FigureItems[cmd.fromPosition.x, cmd.fromPosition.y];
+                FigureItems[cmd.fromPosition.x, cmd.fromPosition.y] = FigureItems[cmd.toPosition.x, cmd.toPosition.y];
+                FigureItems[cmd.toPosition.x, cmd.toPosition.y] = temp;
+                boardUpdateStage = BoardUpdateStage.HandleMove_WaitForEnd;
+            }
+            else
+                boardUpdateStage = BoardUpdateStage.DestroyMatches;
+        }
+
+        private void ExecuteHandeMove_WaitForEnd()
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            if (!ArePreviousMovesFinished())
+                return;
+            else
+                boardUpdateStage = BoardUpdateStage.DestroyMatches;
+        }
+
+        private void ExecuteDestroyMatches(MoveSet moveSet)
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            while (moveSet.fromBoardToCemeteryMoves.Count > 0)
+            {
+                var cmd = moveSet.fromBoardToCemeteryMoves.Dequeue();
+                FigureItems[cmd.fromPosition.x, cmd.fromPosition.y].KillIfOnBoard();
+                BoardItems[cmd.fromPosition.x, cmd.fromPosition.y].Highlight();
+            }
+
+            boardUpdateStage = BoardUpdateStage.DestroyMatches_WaitForEnd;
+        }
+
+        private void ExecuteDestroyMatches_WaitForEnd()
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            if (!ArePreviousMovesFinished())
+                return;
+            else
+                boardUpdateStage = BoardUpdateStage.MovesOnBoard;
+        }
+
+        private void ExecuteMovesOnBoard(MoveSet moveSet)
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            while (moveSet.fromBoardToBoardMoves.Count > 0)
+            {
+                var cmd = moveSet.fromBoardToBoardMoves.Dequeue();
+                FigureItems[cmd.fromPosition.x, cmd.fromPosition.y].MoveFigureToPosition(cmd.toPosition.x, cmd.toPosition.y);
+                FigureItems[cmd.toPosition.x, cmd.toPosition.y] = FigureItems[cmd.fromPosition.x, cmd.fromPosition.y];
+            }
+
+            boardUpdateStage = BoardUpdateStage.MovesOnBoard_WaitForEnd;
+        }
+
+        private void ExecuteMovesOnBoard_WaitForEnd()
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            if (!ArePreviousMovesFinished())
+                return;
+            else
+                boardUpdateStage = BoardUpdateStage.MovesFromQueuesToBoard;
+        }
+
+        private void ExecuteMovesFromQueuesToBoard(MoveSet moveSet)
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            while (moveSet.fromQueueToBoardMoves.Count > 0)
+            {
+                var cmd = moveSet.fromQueueToBoardMoves.Dequeue();
+                FigureItems[cmd.toPosition.x, cmd.toPosition.y] = figureQueues[cmd.fromPosition.x].Dequeue();
+                FigureItems[cmd.toPosition.x, cmd.toPosition.y].MoveFromQueueToBoard();
+                FigureItems[cmd.toPosition.x, cmd.toPosition.y].MoveFigureToPosition(cmd.toPosition.x, cmd.toPosition.y);
+
+                for (int i = 0; i < figureQueues[cmd.fromPosition.x].Count; i++)
+                {
+                    var figureItem = figureQueues[cmd.fromPosition.x].Dequeue();
+                    figureItem.MoveFigureToPosition(figureItem.Position.x, figureItem.Position.y - 1);
+                    figureQueues[cmd.fromPosition.x].Enqueue(figureItem);
+                }
+            }
+
+            boardUpdateStage = BoardUpdateStage.MovesFromQueuesToBoard_WaitForEnd ;
+        }
+
+        private void ExecuteMovesFromQueuesToBoard_WaitForEnd()
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            if (!ArePreviousMovesFinished())
+                return;
+            else
+                boardUpdateStage = BoardUpdateStage.MovesInQueues;
+        }
+
+        private void ExecuteMovesInQueues(MoveSet moveSet)
+        {
+            boardUpdateStage = BoardUpdateStage.MovesInQueues_WaitForEnd;
+        }
+
+        private void ExecuteMovesInQueues_WaitForEnd()
+        {
+            boardUpdateStage = BoardUpdateStage.InstanceNewToQueues;
+        }
+
+        private void ExecuteInstanceNewToQueues(MoveSet moveSet)
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            while (moveSet.fromInstancerToQueueMoves.Count > 0)
+            {
+                var cmd = moveSet.fromInstancerToQueueMoves.Dequeue();
+                var buffer_arr = gameSession.Board.FigureBuffers[cmd.toPosition.x].ToArray();
+                int delta_size = buffer_arr.Length - figureQueues[cmd.toPosition.x].Count;
+                for (int i = delta_size; i > 0; i--)
+                {
+                    var figure_type = buffer_arr[buffer_arr.Length - i].FigureType;
+                    InstantiateQueueFigureItem(figure_type, cmd.toPosition.x, buffer_arr.Length - i);
+                }
+            }
+
+            boardUpdateStage = BoardUpdateStage.InstanceNewToQueues_WaitForEnd;
+        }
+
+        private void ExecuteInstanceNewToQueues_WaitForEnd()
+        {
+            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
+            if (!ArePreviousMovesFinished())
+                return;
+            
+            boardUpdateStage = BoardUpdateStage.MovesInQueues;
+
+            if (moveSetUpdateIndex + 1 == commandsConverter.MoveSets.Count)
+            {
+                boardUpdateStage = BoardUpdateStage.AwaitingForUpdate;
+                moveSetUpdateIndex = -1;
+            }
+            else
+            {
+                boardUpdateStage = BoardUpdateStage.HandleMove;
+                moveSetUpdateIndex++;
+            }
+        }
+
+        public bool ArePreviousMovesFinished()
         {
             foreach (var figureItem in FigureItems)
             {
@@ -236,6 +317,7 @@ namespace Match3SampleView
 
 
 
+
         public void InitBoard()
         {
             if (!GameObject.Find(ConstantNames.Board))
@@ -245,7 +327,7 @@ namespace Match3SampleView
             gmst = FindObjectOfType<GameStatics>();
             preload = FindObjectOfType<_preload>();
 #else
-            gmst = GameStatics.Instange;
+            gmst = GameStatics.Instance;
             preload = _preload.Instance;
 #endif
             InitBoardItems();

@@ -65,31 +65,23 @@
   <Class Name="Match3SampleView.BoardItem" Collapsed="true">
     <Position X="6" Y="6" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>BAAgAAAQACAAEAAAAAAEIAAAAACEAgAAAAAAQAAQAEA=</HashCode>
+      <HashCode>BAAgAAAQACAAEAAAAAAEIAAAAACEAkAAAAAAQAAQAEA=</HashCode>
       <FileName>Assets\Scripts\View\BoardItems\BoardItem.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Match3SampleView.FigureItem" Collapsed="true">
-    <Position X="7.5" Y="6.5" Width="1.5" />
+    <Position X="7.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAFACAABCAgAAIAIAAAAAAEAAAEAAQBAQACAgA=</HashCode>
+      <HashCode>BAQAAABFACAABCAgAAoAJAAAAAAEAQAEBAQAAQACIgA=</HashCode>
       <FileName>Assets\Scripts\View\FigureItems\FigureItem.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Match3SampleView.DefaultGameSessionView" Collapsed="true">
-    <Position X="9.25" Y="4.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>ACAhAAACoAAAgIoAAAAAAAEAJBAUAQAAAAAAAACEhIA=</HashCode>
-      <FileName>Assets\Scripts\View\GameSessionViews\DefaultGameSessionView.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Match3SampleView.MainMenu" Collapsed="true">
     <Position X="4.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAABAAAAAQgAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAFAAAAAQgAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\View\Menu\MainMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -111,7 +103,7 @@
   <Class Name="Match3SampleView.GameStatics" Collapsed="true">
     <Position X="4.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAQBAAAAAgAAAAgBAAAAAAkAAABAAAAAYAAAAAAAAEA=</HashCode>
+      <HashCode>CAQBAAAAAgAAAAgBAAAAAAkAAABgAAAAYAAAAAAAAEA=</HashCode>
       <FileName>Assets\Scripts\View\Other\GameStatics.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -125,14 +117,14 @@
   <Class Name="Match3SampleView._preload" Collapsed="true">
     <Position X="4.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAAAAAYAAAACgAAAAIAGBgAQAAQEgAAACAYEA=</HashCode>
+      <HashCode>ACAAIAAAAAAAYAAAACgAAAAIAGBAAQAAQEgAAACAYEA=</HashCode>
       <FileName>Assets\Scripts\View\Other\_preload.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Match3SampleView.DefaultCommandsConverter" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6" Y="8.5" Width="3" />
+    <Position X="6" Y="9.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\View\Other\DefaultCommandsConverter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -142,6 +134,14 @@
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAAEAAAAAAAAAAgAAEAAAAAAAAEAAAA=</HashCode>
       <FileName>Assets\Scripts\Model\Instancers\DefaultFigureItemsInstancer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Match3SampleView.DefaultGameSessionView" Collapsed="true">
+    <Position X="9.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BnQhgAAGoIAAgIqwAEAIEAEAJAAUAQAACAAAIECEhQA=</HashCode>
+      <FileName>Assets\Scripts\View\GameSessionViews\DefaultGameSessionView.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -155,7 +155,7 @@
   <Struct Name="Match3SampleView.MoveCommand" Collapsed="true">
     <Position X="4.25" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAABAAIBAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAABAAIBAAAAACAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\View\Other\MoveCommand.cs</FileName>
     </TypeIdentifier>
   </Struct>
@@ -211,7 +211,7 @@
   <Interface Name="Match3SampleView.IGameSessionView">
     <Position X="9.25" Y="1.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>ACAgAAAAgAAAgAAAAAAAAAEAAAAAAAAAAAAAAACABAA=</HashCode>
+      <HashCode>ACAggAAAgAAAgAAQAAAAEAEAAAAAAAAAAAAAAACABAA=</HashCode>
       <FileName>Assets\Scripts\View\GameSessionViews\IGameSessionView.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -225,14 +225,14 @@
   <Interface Name="Match3SampleView.IBoardItem">
     <Position X="6" Y="4" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAEAAAAAAAAAAAAAAAAgAAAAAAQAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAEAAAAAAAAAAAAAAAAkAAAAAAQAAAAAA=</HashCode>
       <FileName>Assets\Scripts\View\BoardItems\IBoardItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Match3SampleView.IFigureItem">
     <Position X="7.5" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAAgAAIAAAAAAAAAAAAAAAQAAQACAgA=</HashCode>
+      <HashCode>AAAAAABBAAAAAAAgAAIAAAAAAAAAAAAAAAQAAQACAgA=</HashCode>
       <FileName>Assets\Scripts\View\FigureItems\IFigureItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -244,9 +244,9 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Match3SampleView.ICommandsConverter">
-    <Position X="6" Y="7.25" Width="3" />
+    <Position X="6" Y="7.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\View\Other\ICommandsConverter.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -279,7 +279,7 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="Match3SampleView.FigureLocation">
-    <Position X="9.75" Y="6" Width="1.5" />
+    <Position X="9.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAABABAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Assets\Scripts\View\Other\FigureLocation.cs</FileName>

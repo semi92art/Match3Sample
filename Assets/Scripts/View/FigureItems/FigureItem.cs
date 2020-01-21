@@ -71,6 +71,7 @@ namespace Match3SampleView
             speed = 10f;
             spriteRenderer.sortingOrder++;
             IsInAction = true;
+            MainMenu.Instance.LockControls = true;
             doMove = true;
         }
 

@@ -19,7 +19,9 @@ namespace Customs
             System.Object Res = GetSizeOfMainGameView.Invoke(null, null);
             return (Vector2)Res;
 #elif UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS
-        return new Vector2(Screen.width, Screen.height);
+            return new Vector2(Screen.width, Screen.height);
+#else
+            return new Vector2(0, 0);
 #endif
         }
 

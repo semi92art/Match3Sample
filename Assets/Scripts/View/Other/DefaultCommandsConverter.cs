@@ -82,7 +82,6 @@ namespace Match3SampleView
         public void ConvertMoveCommans(Queue<string> commands)
         {
             MoveSets.Clear();
-
             int k = -1;
             while (commands.Count > 0)
             {
@@ -98,7 +97,12 @@ namespace Match3SampleView
                         break;
                     case FigureLocation.queue:
                         if (cmd.toLocation == FigureLocation.board)
+                        {
+                            if (MoveSets.Last().fromInstancerToQueueMoves.Count > 0)
+                                MoveSets.Add(new MoveSet());
+
                             MoveSets.Last().fromQueueToBoardMoves.Enqueue(cmd);
+                        }
                         break;
                     case FigureLocation.board:
                         if (cmd.toLocation == FigureLocation.board)
@@ -116,7 +120,11 @@ namespace Match3SampleView
 
                         }
                         else if (cmd.toLocation == FigureLocation.cemetery)
+                        {
+                            if (MoveSets.Last().fromBoardToBoardMoves.Count > 0 || MoveSets.Last().fromQueueToBoardMoves.Count > 0)
+                                MoveSets.Add(new MoveSet());
                             MoveSets.Last().fromBoardToCemeteryMoves.Enqueue(cmd);
+                        }
                         break;
                     default:
                         throw new System.NotImplementedException("ConvertMoveCommans function not implemented completely! (fromLocation)");

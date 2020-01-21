@@ -15,5 +15,6 @@ namespace Match3SampleView
         void UpdateBoard();
         void InitBoard();
         Vector3 GetBoardWorldPosition(int x, int y);
+        bool ArePreviousMovesFinished();
     }
 }
