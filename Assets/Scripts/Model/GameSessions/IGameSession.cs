@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Match3SampleModel
 {
@@ -6,7 +7,8 @@ namespace Match3SampleModel
     {
         event EventHandler OnBoardChanged;
         IBoard Board { get; }
-        IMatchesDestroyer MatchesDestroyer { get; }
+        IFigureItemsInstancer FigureItemsInstancer { get; }
         void TryMoveFigure(Vec2 from, Vec2 to);
+        Queue<string> Moves { get; }
     }
 }

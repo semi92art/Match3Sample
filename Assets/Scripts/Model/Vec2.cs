@@ -26,5 +26,10 @@ namespace Match3SampleModel
         {
             return v2_1.x != v2_2.x || v2_1.y != v2_2.y;
         }
+
+        public override string ToString()
+        {
+            return x + "," + y;
+        }
     }
 }

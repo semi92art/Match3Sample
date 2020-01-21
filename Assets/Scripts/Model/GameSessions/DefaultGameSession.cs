@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace Match3SampleModel
 {
@@ -7,12 +8,15 @@ namespace Match3SampleModel
     {
         public event EventHandler OnBoardChanged;
         public IBoard Board { get; private set; }
-        public IMatchesDestroyer MatchesDestroyer { get; private set; }
+        public IFigureItemsInstancer FigureItemsInstancer { get; private set; }
+        public Queue<string> Moves { get; private set; }
+        
 
-        public DefaultGameSession(IBoard board, IMatchesDestroyer matchesDestroyer)
+        public DefaultGameSession(IBoard board, IFigureItemsInstancer figureItemsInstancer)
         {
             Board = board;
-            MatchesDestroyer = matchesDestroyer;
+            FigureItemsInstancer = figureItemsInstancer;
+            Moves = new Queue<string>();
         }
 
         public void TryMoveFigure(Vec2 from, Vec2 to)
@@ -32,7 +36,28 @@ namespace Match3SampleModel
             }
 
             if (Board.TryMoveFigure(from, figureMoveType))
+            {
+                FigureItemsInstancer.Moves.Enqueue("h" + from.ToString() + "_" + "b" + to.ToString());
+                CheckForMathces();
+                PrepareNewMoves();
                 OnBoardChanged(null, null);
+            }
+        }
+
+        private void CheckForMathces()
+        {
+            if (FigureItemsInstancer.CheckForNewMatches(Board.FigureItemsTable, FigureAction.SetEmpty))
+            {
+                FigureItemsInstancer.FillEmptyItemsFromQueues(Board);
+                CheckForMathces();
+            }
+        }
+
+        private void PrepareNewMoves()
+        {
+            Moves.Clear();
+            while (FigureItemsInstancer.Moves.Count > 0)
+                Moves.Enqueue(FigureItemsInstancer.Moves.Dequeue());
         }
     }
 }

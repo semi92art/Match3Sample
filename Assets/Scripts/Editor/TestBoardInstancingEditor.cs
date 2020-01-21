@@ -1,16 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-
-[ExecuteInEditMode]
-public class TestBoardInstantiating : MonoBehaviour
-{
-    public void InstantiateDefaultBoard()
-    {
-        var preload = FindObjectOfType<_preload>();
-    }
-}
-
 [CustomEditor(typeof(TestBoardInstantiating))]
 public class TestBoardInstantiatingEditor : Editor
 {
@@ -29,4 +19,3 @@ public class TestBoardInstantiatingEditor : Editor
             instance.InstantiateDefaultBoard();
     }
 }
-

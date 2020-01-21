@@ -7,12 +7,13 @@ namespace Match3SampleView
     public class DefaultGameSessionController : IGameSessionController
     {
         public IGameSession GameSession { get; private set; }
-        public IGameSessionView GameSessionView { get; private set; }
+        private IGameSessionView gameSessionView;
 
         public DefaultGameSessionController(IGameSession gameSession, IGameSessionView gameSessionView)
         {
             GameSession = gameSession;
-            GameSessionView = gameSessionView;
+            this.gameSessionView = gameSessionView;
+            gameSession.OnBoardChanged += UpdateBoard;
         }
 
         public void TryMove(Vector2Int from, Vector2Int to)
@@ -22,7 +23,7 @@ namespace Match3SampleView
 
         public void UpdateBoard(object sender, EventArgs e)
         {
-            GameSessionView.UpdateBoard();
+            gameSessionView.UpdateBoard();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace Match3SampleModel
         IFigureItem[,] FigureItemsTable { get; }
         bool TryMoveFigure(Vec2 from, FigureMoveType figureMoveType);
         Queue<IFigureItem>[] FigureBuffers { get; }
+        int BoardSize_X { get; }
+        int BoardSize_Y { get; }
     }
 }

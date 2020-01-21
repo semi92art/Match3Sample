@@ -1,98 +1,99 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using Customs;
 
-public class _preload : MonoBehaviour
+namespace Match3SampleView
 {
-    [Header("Figure Prefabs:")]
-    public GameObject bananaFigurePrefab;
-    public GameObject cakeFigurePrefab;
-    public GameObject caramelFigurePrefab;
-    public GameObject goldenStarFigurePrefab;
-    public GameObject iceCreamFigurePrefab;
-    public GameObject purpleCakeFigurePrefab;
-    [Header("Board Prefabs:")]
-    public GameObject boardItemPrefab;
 
-    private static _preload instance = null;
-    public static _preload Instange { get { return instance; } }
-
-    private void Awake()
+    public class _preload : MonoBehaviour
     {
-        if (instance)
+        private static _preload instance = null;
+        public static _preload Instance { get { return instance; } }
+
+        [Header("Figure Prefabs:")]
+        public GameObject bananaFigurePrefab;
+        public GameObject cakeFigurePrefab;
+        public GameObject caramelFigurePrefab;
+        public GameObject goldenStarFigurePrefab;
+        public GameObject iceCreamFigurePrefab;
+        public GameObject purpleCakeFigurePrefab;
+        [Header("Board Prefabs:")]
+        public GameObject boardItemPrefab;
+        [Header("Board Relative Indents:")]
+        public float delta_bottom_coeff = 0.1f;
+        public float delta_top_coeff = 0.25f;
+
+        public static int Call_hash;
+        public static int Back_hash;
+        public static int Kill_hash;
+
+
+
+
+        private void Awake()
         {
-            DestroyImmediate(gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        SceneManager.activeSceneChanged += InitMenu_;
-    }
-
-    private void DestroyAllExceptThis()
-    {
-        foreach (var item in FindObjectsOfType<GameObject>())
-        {
-            if (item != gameObject)
+            if (instance)
             {
+                DestroyImmediate(gameObject);
+                return;
+            }
+            instance = this;
+
+            Call_hash = Animator.StringToHash("call");
+            Back_hash = Animator.StringToHash("back");
+            Kill_hash = Animator.StringToHash("kill");
+
+            DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += InitMenu_;
+            SceneManager.LoadScene(1);
+        }
+
+        private void DestroyAllExceptThis()
+        {
+            foreach (var item in FindObjectsOfType<GameObject>())
+            {
+                if (item != gameObject)
+                {
 #if UNITY_EDITOR
-                DestroyImmediate(item);
+                    DestroyImmediate(item);
 #else
-                Destroy(item);
+                    Destroy(item);
 #endif
+                }
             }
         }
-    }
 
-    public void InitMenu_(Scene sc0, Scene sc1)
-    {
-        if (sc1.buildIndex != 1)
-            return;
+        public void InitMenu_(Scene sc0, Scene sc1)
+        {
+            if (sc1.buildIndex != 1)
+                return;
 
-        InitStatics();
-    }
+            InitStatics();
+            //GameStatics.Instance.InitBoard();
+        }
 
-    public void InitStatics()
-    {
-        GameObject obj;
-        //GameStatics gmst;
+        public void InitStatics()
+        {
+            GameObject obj;
+            GameStatics gmst;
 
 #if UNITY_EDITOR
-        DestroyImmediate(GameObject.Find("BOARD ITEMS"));
-        DestroyImmediate(GameObject.Find("FIGURE ITEMS"));
-        DestroyImmediate(GameObject.Find("BOARD"));
-        DestroyImmediate(GameObject.Find("STATICS"));
+            DestroyImmediate(GameObject.Find(ConstantNames.BoardItems));
+            DestroyImmediate(GameObject.Find(ConstantNames.FigureItems));
+            DestroyImmediate(GameObject.Find(ConstantNames.Board));
+            DestroyImmediate(GameObject.Find(ConstantNames.StaticInstances));
 #else
-        Destroy(GameObject.Find("BOARD ITEMS"));
-        Destroy(GameObject.Find("FIGURE ITEMS"));
-        Destroy(GameObject.Find("BOARD"));
-        Destroy(GameObject.Find("STATICS"));
+            Destroy(GameObject.Find(ConstantNames.BoardItems));
+            Destroy(GameObject.Find(ConstantNames.FigureItems));
+            Destroy(GameObject.Find(ConstantNames.Board));
+            Destroy(GameObject.Find(ConstantNames.StaticInstances));
 #endif
 
-        obj = new GameObject("STATICS");
-        //gmst = obj.AddComponent<GameStatics>();
-        //gmst.board = new GameObject("BOARD");
-        //gmst.boardItemsParent = new GameObject("BOARD ITEMS");
-        //gmst.chessItemsParent = new GameObject("CHESS ITEMS");
+            obj = new GameObject(ConstantNames.StaticInstances);
+            gmst = obj.AddComponent<GameStatics>();
+        }
 
-
-
-        //StartCoroutine(SetParents(gmst.boardItemsParent.transform, gmst.chessItemsParent.transform, gmst.board.transform));
-    }
-
-    //Костыль, т.к. по напрямую установить родителей boardItemsParent и chessItemsParent не выходит
-    private IEnumerator SetParents(Transform tr1, Transform tr2, Transform parent_tr)
-    {
-        /*System.DateTime dt_start = System.DateTime.Now;
-        while (dt_start.SecondsBetween(System.DateTime.Now) < 0.5f)
-            yield return null;
-
-        tr1.SetParent(parent_tr);
-        tr2.SetParent(parent_tr);*/
-        yield return null;
+        
     }
 }

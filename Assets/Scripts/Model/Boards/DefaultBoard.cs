@@ -10,7 +10,8 @@ namespace Match3SampleModel
     {
         public IFigureItem[,] FigureItemsTable { get; private set; }
         public Queue<IFigureItem>[] FigureBuffers { get; private set; }
-
+        public int BoardSize_X { get { return FigureItemsTable.GetLength(0); } }
+        public int BoardSize_Y { get { return FigureItemsTable.GetLength(1); } }
 
         public DefaultBoard(IFigureItem[,] FigureItemsTable, Queue<IFigureItem>[] FigureBuffers)
         {
@@ -54,7 +55,7 @@ namespace Match3SampleModel
 
         public void AddFiguresFromBuffers()
         {
-            IFigureItemsRandomInstancer figureItemsRandomInstancer = new DefaultFigureItemsRandomInstancer();
+            IFigureItemsInstancer figureItemsRandomInstancer = new DefaultFigureItemsInstancer();
             int x_length = FigureItemsTable.GetLength(0);
             int y_length = FigureItemsTable.GetLength(1);
             for (int i = 0; i < x_length; i++)

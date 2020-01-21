@@ -2,14 +2,18 @@
 
 namespace Match3SampleModel
 {
-    public class SimpleBoardFactory : IBoardFactory
+    public class DefaultBoardFactory : IBoardFactory
     {
-        public IBoard CreateBoard()
-        {
-            IFigureItemsRandomInstancer figureItemsRandomInstancer = new DefaultFigureItemsRandomInstancer();
+        private IFigureItemsInstancer figureItemsRandomInstancer;
 
-            int size_x = 10;
-            int size_y = 10;
+        public IBoard Create()
+        {
+            return Create(10, 10);
+        }
+
+        public IBoard Create(int size_x, int size_y)
+        {
+            figureItemsRandomInstancer = new DefaultFigureItemsInstancer();
 
             IFigureItem[,] figureItemsTable = new IFigureItem[size_x, size_y];
 
@@ -19,16 +23,25 @@ namespace Match3SampleModel
                     figureItemsTable[i, j] = figureItemsRandomInstancer.InstantiateItem();
             }
 
+            CheckForMatches(figureItemsTable);
+
             Queue<IFigureItem>[] figureItemBuffers = new Queue<IFigureItem>[size_x];
             for (int i = 0; i < size_x; i++)
             {
                 figureItemBuffers[i] = new Queue<IFigureItem>();
                 for (int j = 0; j < size_y; j++)
                     figureItemBuffers[i].Enqueue(figureItemsRandomInstancer.InstantiateItem());
-                
+
             }
 
             return new DefaultBoard(figureItemsTable, figureItemBuffers);
+        }
+
+            private void CheckForMatches(IFigureItem[,] figureItemsTable)
+        {
+            UnityEngine.Debug.Log("CheckForMatches");
+            if (figureItemsRandomInstancer.CheckForNewMatches(figureItemsTable, FigureAction.ReplaceRandom))
+                CheckForMatches(figureItemsTable);
         }
     }
 }

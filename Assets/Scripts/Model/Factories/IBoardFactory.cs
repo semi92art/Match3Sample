@@ -3,6 +3,7 @@ namespace Match3SampleModel
 {
     public interface IBoardFactory
     {
-        IBoard CreateBoard();
+        IBoard Create();
+        IBoard Create(int size_x, int size_y);
     }
 }
