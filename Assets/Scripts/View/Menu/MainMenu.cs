@@ -10,8 +10,7 @@ namespace Match3SampleView
         public static MainMenu Instance { get { return instance; } }
 
         public bool LockControls { get; set; }
-        public InputField width;
-        public InputField height;
+        public InputField size;
 
         private void Awake()
         {
@@ -22,8 +21,8 @@ namespace Match3SampleView
 
         public void CreateBoard()
         {
-            int size_x = int.Parse(width.text);
-            int size_y = int.Parse(height.text);
+            int size_x = int.Parse(size.text);
+            int size_y = int.Parse(size.text);
 
             IBoardFactory bf = new DefaultBoardFactory();
             GameStatics.Instance.InitBoard(size_x, size_y);
