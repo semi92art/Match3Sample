@@ -69,8 +69,6 @@ namespace Match3SampleView
             from_str = from_str.Replace(from_str[0].ToString(), string.Empty);
             to_str = to_str.Replace(to_str[0].ToString(), string.Empty);
 
-            //Debug.Log("from_str: " + from_str + ", to_str: " + to_str);
-
             var from_pos_split = from_str.Split(',');
             var to_pos_split = to_str.Split(',');
             fromPosition = new Vector2Int(int.Parse(from_pos_split[0]), int.Parse(from_pos_split[1]));
@@ -88,7 +86,7 @@ namespace Match3SampleView
                 k++;
                 var cmd_str = commands.Dequeue();
                 MoveCommand cmd = ConvertMoveCommand(cmd_str);
-                Debug.Log("cmd: " +  cmd_str);
+
                 switch (cmd.fromLocation)
                 {
                     case FigureLocation.instancer:

@@ -66,7 +66,6 @@ namespace Match3SampleView
                     throw new System.NotImplementedException("MakeTurn function not implemented completely!");
             }
 
-            Debug.Log(playerAction);
             if (playerAction == PlayerAction.Select)
             {
                 if (prev_selected.x != -1)
@@ -148,7 +147,6 @@ namespace Match3SampleView
 
         private void ExecuteHandleMove(MoveSet moveSet)
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             if (moveSet.fromBoardToBoardMoveHandle.fromPosition.x != -1)
             {
                 var cmd = moveSet.fromBoardToBoardMoveHandle;
@@ -166,7 +164,6 @@ namespace Match3SampleView
 
         private void ExecuteHandeMove_WaitForEnd()
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             if (!ArePreviousMovesFinished())
                 return;
             else
@@ -175,7 +172,6 @@ namespace Match3SampleView
 
         private void ExecuteDestroyMatches(MoveSet moveSet)
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             while (moveSet.fromBoardToCemeteryMoves.Count > 0)
             {
                 var cmd = moveSet.fromBoardToCemeteryMoves.Dequeue();
@@ -188,7 +184,6 @@ namespace Match3SampleView
 
         private void ExecuteDestroyMatches_WaitForEnd()
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             if (!ArePreviousMovesFinished())
                 return;
             else
@@ -197,7 +192,6 @@ namespace Match3SampleView
 
         private void ExecuteMovesOnBoard(MoveSet moveSet)
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             while (moveSet.fromBoardToBoardMoves.Count > 0)
             {
                 var cmd = moveSet.fromBoardToBoardMoves.Dequeue();
@@ -210,7 +204,6 @@ namespace Match3SampleView
 
         private void ExecuteMovesOnBoard_WaitForEnd()
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             if (!ArePreviousMovesFinished())
                 return;
             else
@@ -219,7 +212,6 @@ namespace Match3SampleView
 
         private void ExecuteMovesFromQueuesToBoard(MoveSet moveSet)
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             while (moveSet.fromQueueToBoardMoves.Count > 0)
             {
                 var cmd = moveSet.fromQueueToBoardMoves.Dequeue();
@@ -240,7 +232,6 @@ namespace Match3SampleView
 
         private void ExecuteMovesFromQueuesToBoard_WaitForEnd()
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             if (!ArePreviousMovesFinished())
                 return;
             else
@@ -259,7 +250,6 @@ namespace Match3SampleView
 
         private void ExecuteInstanceNewToQueues(MoveSet moveSet)
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             while (moveSet.fromInstancerToQueueMoves.Count > 0)
             {
                 var cmd = moveSet.fromInstancerToQueueMoves.Dequeue();
@@ -277,7 +267,6 @@ namespace Match3SampleView
 
         private void ExecuteInstanceNewToQueues_WaitForEnd()
         {
-            Debug.Log("moveSetUpdateIndex: " + moveSetUpdateIndex + ", boardUpdateStage: " + boardUpdateStage.ToString());
             if (!ArePreviousMovesFinished())
                 return;
             

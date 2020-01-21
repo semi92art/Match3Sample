@@ -66,11 +66,6 @@ namespace Match3SampleView
 
             boardSpriteSize.x = boardSizeInWorldSpace.x / (float)boardSizeInItems.x;
             boardSpriteSize.y = boardSizeInWorldSpace.x / (float)boardSizeInItems.y;
-
-           /* Debug.Log("zero_point: " + zero_point);
-            Debug.Log("boardSizeInWorldSpace: " + boardSizeInWorldSpace);
-            Debug.Log("boardSizeInItems: " + boardSizeInItems);
-            Debug.Log("boardSpriteSize: " + boardSpriteSize);*/
         }
 
         

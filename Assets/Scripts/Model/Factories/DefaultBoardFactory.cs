@@ -37,9 +37,8 @@ namespace Match3SampleModel
             return new DefaultBoard(figureItemsTable, figureItemBuffers);
         }
 
-            private void CheckForMatches(IFigureItem[,] figureItemsTable)
+        private void CheckForMatches(IFigureItem[,] figureItemsTable)
         {
-            UnityEngine.Debug.Log("CheckForMatches");
             if (figureItemsRandomInstancer.CheckForNewMatches(figureItemsTable, FigureAction.ReplaceRandom))
                 CheckForMatches(figureItemsTable);
         }

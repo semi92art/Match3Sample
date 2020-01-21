@@ -78,7 +78,6 @@ namespace Match3SampleView
 
         public void MakeTurn()
         {
-            Debug.Log("Make Turn!");
             if (isSelected)
                 return;
 

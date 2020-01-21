@@ -37,23 +37,6 @@ namespace Customs
             }
         }
 
-        public static void DestroyAllChilds(Component comp)
-        {
-            DestroyAllChilds(comp.gameObject);
-        }
-
-        public static void SetSpriteRendererObjectSize(SpriteRenderer rend, Vector2 size)
-        {
-            rend.transform.localScale = Vector3.one;
-            rend.transform.localScale = new Vector3(size.x / rend.bounds.size.x, size.y / rend.bounds.size.y, 1);
-        }
-
-        public static void SetSpriteRendererObjectSize(GameObject obj, Vector2 size)
-        {
-            if (obj.GetComponent<SpriteRenderer>() == null)
-                return;
-            SetSpriteRendererObjectSize(obj.GetComponent<SpriteRenderer>(), size);
-        }
     }
 }
 
