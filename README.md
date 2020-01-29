@@ -9,4 +9,4 @@ Instructions to load game in Unity:
 ____________________________________________________
 
 Code diagram scheme:
-![]/Match3Sample.png
+![](Match3Sample.png)
