@@ -18,10 +18,10 @@ namespace Customs
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
             System.Object Res = GetSizeOfMainGameView.Invoke(null, null);
             return (Vector2)Res;
-#elif UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS
+#elif UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS || UNITY_WEBGL
             return new Vector2(Screen.width, Screen.height);
 #else
-            return new Vector2(0, 0);
+            throw new System.NotImplementedException("GetGameWindowSize function not implemented completely!");
 #endif
         }
 
