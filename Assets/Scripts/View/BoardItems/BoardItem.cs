@@ -67,7 +67,7 @@ namespace Match3SampleView
                 return;
 
 
-#if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
             if (Input.GetMouseButtonDown(0))
                 MakeTurn();
 #elif UNITY_ANDROID || UNITY_IOS

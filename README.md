@@ -1,6 +1,9 @@
 Match3Sample
 Unity version: 2019.2.15f1
 ____________________________________________________
+Load game in browser:
+1. open savsav.ru in browser
+2. click "Match3 sample"
 
 Instructions to load game in Unity:
 1. Load _preload.scene
